@@ -28,10 +28,6 @@ boolean CheckerDT_Node_isValid(Node_T n) {
       return FALSE;
    }
    parent = Node_getParent(n);
-   if(Node_getNumChildren(parent) == 0) {
-      fprintf(stderr, "This parent should have a child\n");
-      return FALSE;
-   }
    if(parent != NULL) {
       npath = Node_getPath(n);
       /* Sample check that parent's path must be prefix of n's path */
