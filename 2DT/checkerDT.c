@@ -23,17 +23,20 @@ boolean CheckerDT_Node_isValid(Node_T n) {
       fprintf(stderr, "A node is a NULL pointer\n");
       return FALSE;
    }
-
    parent = Node_getParent(n);
    if(parent == NULL) {
       fprintf(stderr, "A child should not have a NULL parent\n");
       return FALSE;
    }
+   if((Node_hasChildren(parent) == 0) {
+      fprintf(stderr, "This parent should have a child\n");
+      return FALSE;
+   }
    if(parent != NULL) {
       npath = Node_getPath(n);
-
       /* Sample check that parent's path must be prefix of n's path */
       ppath = Node_getPath(parent);
+      if (npath == NULL || )
       i = strlen(ppath);
       if(strncmp(npath, ppath, i)) {
          fprintf(stderr, "P's path is not a prefix of C's path\n");
