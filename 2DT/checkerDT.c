@@ -93,7 +93,16 @@ boolean CheckerDT_isValid(boolean isInit, Node_T root, size_t count) {
          fprintf(stderr, "Not initialized, but count is not 0\n");
          return FALSE;
       }
-
+   if (count > 0) {
+      if (root == NULL) {
+         return FALSE;
+      }
+   }
+   else {
+      if (root != NULL) {
+         return FALSE;
+      }
+   }
    /* Now checks invariants recursively at each node from the root. */
    return CheckerDT_treeCheck(root);
 }
