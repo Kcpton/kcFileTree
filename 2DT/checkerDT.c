@@ -32,7 +32,7 @@ boolean CheckerDT_Node_isValid(Node_T n) {
       fprintf(stderr, "A child should not have a NULL parent\n");
       return FALSE;
    }
-   if(Node_hasChildren(parent) == 0) {
+   if(Node_getNumChildren(parent) == 0) {
       fprintf(stderr, "This parent should have a child\n");
       return FALSE;
    }
