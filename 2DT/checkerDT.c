@@ -23,6 +23,10 @@ boolean CheckerDT_Node_isValid(Node_T n) {
       fprintf(stderr, "A node is a NULL pointer\n");
       return FALSE;
    }
+   if(Node_getPath(n) == NULL) {
+      fprintf(stderr, "A node should not have a null path\n");
+      return FALSE;
+   }
    parent = Node_getParent(n);
    if(parent == NULL) {
       fprintf(stderr, "A child should not have a NULL parent\n");
@@ -98,6 +102,10 @@ boolean CheckerDT_isValid(boolean isInit, Node_T root, size_t count) {
          fprintf(stderr, "Not initialized, but count is not 0\n");
          return FALSE;
       }
+   if(Node_getPath(root) != NULL) {
+         fprintf(stderr, "A root should have a NULL path\n");
+         return FALSE;
+   }
 
    /* Now checks invariants recursively at each node from the root. */
    return CheckerDT_treeCheck(root);
