@@ -9,6 +9,7 @@
 #include <stddef.h>
 #include "a4def.h"
 
+typedef struct node* Node_T;
 /*
    Node_getLocation takes a Node_T input and looks for a char
    key inside of the Node_T and stores the location of where
