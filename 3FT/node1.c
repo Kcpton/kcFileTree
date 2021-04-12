@@ -10,6 +10,7 @@
 
 #include "dynarray.h"
 #include "node.h"
+#include "file.h"
 
 struct node {
    /* the full path of this directory */
@@ -39,6 +40,11 @@ Node_T Node_new(char* path) {
    return output;
 }
 
+/*
+  Node_compare compares node1 and node2 based on their paths.
+  Returns <0, 0, or >0 if node1 is less than,
+  equal to, or greater than node2, respectively.
+*/
 static int Node_compare(Node_T node1, Node_T node2) {
    assert(node1 != NULL);
    assert(node2 != NULL);
@@ -59,6 +65,7 @@ char* Node_toString(Node_T n) {
    }
 }
 
+
 Node_T Node_getChild(Node_T n, size_t childID) {
    assert(n != NULL);
 
@@ -73,7 +80,8 @@ Node_T Node_getChild(Node_T n, size_t childID) {
 int Node_getLocation(Node_T input, char* key, size_t *loc) {
    assert(input != NULL);
    assert(key != NULL);
-   return DynArray_bsearch(input->children, key, loc, Node_compare) == 0;
+   return DynArray_bsearch(input->children, key, loc, 
+      (int (*)(void*, void*)) Node_compare) == 0;
 }
 
 int Node_addChild(Node_T parent, char* path, size_t loc) {
