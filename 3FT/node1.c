@@ -11,6 +11,7 @@
 
 #include "node.h"
 #include "file.h"
+#include "dynarray.h"
 
 struct node {
    /* the full path of this directory */
