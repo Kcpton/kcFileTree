@@ -10,17 +10,7 @@
 #include "a4def.h"
 #include "file.h"
 
-typedef struct node* Node_T;
-struct node {
-   /* the full path of this directory */
-   char* path;
-   /* the subdirectories of this directory
-      stored in sorted order by pathname */
-   DynArray_T children;
-   /* the files of this directory
-      stored in sorted order by pathname */
-   DynArray_T files;
-};
+
 /*
    Node_getLocation takes a Node_T input and looks for a char
    key inside of the Node_T and stores the location of where
