@@ -66,9 +66,9 @@ int File_contatins(Node_T inNode, char* path) {
     size_t *loc = NULL;
     if(DynArray_bsearch(Node_getFiles(inNode), path, loc, 
     (int (*)(const void*, const void*)) File_compare)) {
-        return TRUE;
+        return 1;
     }
-    return FALSE;
+    return 0;
 }
 
 /*
