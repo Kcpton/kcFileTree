@@ -15,6 +15,6 @@ enum { SUCCESS,
 
 /* In lieu of a proper boolean datatype */
 typedef enum bool { FALSE, TRUE } boolean;
-
+typedef struct node* Node_T;
 
 #endif
