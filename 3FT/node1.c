@@ -82,7 +82,27 @@ int Node_getLocation(Node_T input, char* key, size_t *loc) {
    assert(key != NULL);
    return DynArray_bsearch(input->children, key, loc, 
       (int (*)(const void*, const void*)) Node_compare) == 0;
+}size_t Node_destroy(Node_T input) {
+   size_t i;
+   size_t count = 0;
+   Node_T tempNode;
+
+   assert(input != NULL);
+
+   for(i = 0; i < DynArray_getLength(input->children); i++)
+   {
+      tempNode = DynArray_get(input->children, i);
+      count += Node_destroy(tempNode);
+   }
+   File_freeAll(input);
+   DynArray_free(input->children);
+   free(input->path);
+   free(input);
+   count++;
+
+   return count;
 }
+
 
 int Node_addChild(Node_T parent, char* path, size_t loc) {
    Node_T newNode = Node_new(path);
@@ -111,24 +131,5 @@ size_t Node_getNumChildren(Node_T n) {
    return DynArray_getLength(n->children);
 }
 
-size_t Node_destroy(Node_T input) {
-   size_t i;
-   size_t count = 0;
-   Node_T tempNode;
 
-   assert(input != NULL);
-
-   for(i = 0; i < DynArray_getLength(input->children); i++)
-   {
-      tempNode = DynArray_get(input->children, i);
-      count += Node_destroy(tempNode);
-   }
-   File_freeAll(input);
-   DynArray_free(input->children);
-   free(input->path);
-   free(input);
-   count++;
-
-   return count;
-}
 
