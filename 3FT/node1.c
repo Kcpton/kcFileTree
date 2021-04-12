@@ -10,6 +10,7 @@
 
 #include "dynarray.h"
 #include "node.h"
+#include "file.h"
 
 struct node {
    /* the full path of this directory */
