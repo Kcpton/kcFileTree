@@ -11,6 +11,7 @@
 
 #include "dynarray.h"
 #include "file.h"
+#include "node.h"
 #include "node1.c"
 
 struct file {
