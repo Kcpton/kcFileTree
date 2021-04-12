@@ -30,6 +30,7 @@ File_T File_new(char* path, void* contents) {
     }
     strcpy(output->path, path);
     output->contents = contents;
+    return output;
 }
 
 
@@ -43,7 +44,7 @@ static int File_compare(File_T file1, File_T file2) {
 }
 
 int File_insert(Node_T inNode, char* path, void* contents)  {
-    size_t loc;
+    size_t *loc;
     File_T newFile;
     if(DynArray_bsearch(inNode->files, path, loc, 
         (int (*)(const void*, const void*)) File_compare)) {
@@ -95,7 +96,7 @@ int File_replace(Node_T inNode, char* path, void* contents) {
     File_T outFile = File_getFile(inNode, path);
     void* output;
     if(outFile == NULL) {
-        return NULL;
+        return NO_SUCH_PATH;
     }
     output = outFile->contents;
     outFile->contents = contents;
@@ -141,7 +142,7 @@ int File_rmFile(Node_T inNode, char* path){
 
 void File_freeAll(Node_T inNode) {
     File_T tempFile;
-    int i;
+    size_t i;
     for(i = 0; i < DynArray_getLength(inNode->files); i++)
     {
       tempFile = DynArray_get(inNode->files, i);
