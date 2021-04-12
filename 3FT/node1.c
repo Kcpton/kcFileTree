@@ -122,7 +122,7 @@ size_t Node_destroy(Node_T input) {
       tempNode = DynArray_get(input->children, i);
       count += Node_destroy(tempNode);
    }
-   
+   File_freeAll(input);
    DynArray_free(input->children);
    free(input->path);
    free(input);
