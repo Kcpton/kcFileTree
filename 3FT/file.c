@@ -77,7 +77,7 @@ int File_contatins(Node_T inNode, char* path) {
 static File_T File_getFile(Node_T inNode, char* path) {
     size_t* loc;
     int exist = DynArray_bsearch(inNode->files, path, loc, 
-        File_compare);
+        (int (*)(const void*, const void*)) File_compare);
     File_T outFile;
     if (exist == 0) {
         return NULL;
@@ -123,11 +123,11 @@ size_t File_getNumFiles(Node_T inNode, char* path) {
 int File_rmFile(Node_T inNode, char* path){
     size_t* loc;
     int exist = DynArray_bsearch(inNode->files, path, loc, 
-        File_compare);
+        (int (*)(const void*, const void*)) File_compare);
     File_T outFile;
     if (!exist) {
         if(DynArray_bsearch(inNode->files, path, loc, 
-            File_compare)) {
+            (int (*)(const void*, const void*)) File_compare)) {
             return NOT_A_FILE;
         }
         return NO_SUCH_PATH;
