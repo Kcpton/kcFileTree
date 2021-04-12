@@ -15,7 +15,7 @@ Allows files to be inserted into the tree as well
 #include "file.h"
 #include "node.h"
 
-/* Remember to write some comment here, dumbass*/
+/* Remember to write somse comment here, dumbass*/
 static boolean isInitialized;
 
 static Node_T root;
