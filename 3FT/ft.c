@@ -542,4 +542,4 @@ char *FT_toString(void)
    DynArray_free(directories);
    DynArray_free(files);
    return result;
-}s
+}
