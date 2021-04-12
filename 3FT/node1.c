@@ -114,7 +114,6 @@ size_t Node_destroy(Node_T input) {
    size_t i;
    size_t count = 0;
    Node_T tempNode;
-   File_T tempFile;
 
    assert(input != NULL);
 
