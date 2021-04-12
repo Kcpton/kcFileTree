@@ -92,11 +92,11 @@ char* File_toString(Node_T inNode, char* path) {
     return outFile->path;
 }
 
-int File_replace(Node_T inNode, char* path, void* contents) {
+void* File_replace(Node_T inNode, char* path, void* contents) {
     File_T outFile = File_getFile(inNode, path);
     void* output;
     if(outFile == NULL) {
-        return NO_SUCH_PATH;
+        return NULL;
     }
     output = outFile->contents;
     outFile->contents = contents;
