@@ -131,5 +131,5 @@ size_t Node_getNumChildren(Node_T n) {
    return DynArray_getLength(n->children);
 }
 
-
+DynArray_T Node_get
 

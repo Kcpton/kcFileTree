@@ -11,7 +11,7 @@
 
 #include "dynarray.h"
 #include "file.h"
-#include "node1.c"
+#include "node.h"
 
 struct file {
     char* path;
@@ -46,7 +46,7 @@ static int File_compare(File_T file1, File_T file2) {
 int File_insert(Node_T inNode, char* path, void* contents)  {
     size_t *loc = NULL;
     File_T newFile;
-    if(DynArray_bsearch(inNode->files, path, loc, 
+    if(DynArray_bsearch(Node_getFiles(inNode), path, loc, 
         (int (*)(const void*, const void*)) File_compare)) {
         return ALREADY_IN_TREE;
     }
@@ -54,7 +54,7 @@ int File_insert(Node_T inNode, char* path, void* contents)  {
     if(newFile == NULL) {
         return MEMORY_ERROR;
     }
-    if(DynArray_addAt(inNode->files, *loc, newFile)) {
+    if(DynArray_addAt(Node_getFiles(inNode), *loc, newFile)) {
         return SUCCESS;
     }
     
@@ -63,7 +63,7 @@ int File_insert(Node_T inNode, char* path, void* contents)  {
 
 int File_contatins(Node_T inNode, char* path) {
     size_t *loc = NULL;
-    if(DynArray_bsearch(inNode->files, path, loc, 
+    if(DynArray_bsearch(Node_getFiles(inNode), path, loc, 
     (int (*)(const void*, const void*)) File_compare)) {
         return TRUE;
     }
@@ -77,13 +77,13 @@ int File_contatins(Node_T inNode, char* path) {
 */
 static File_T File_getFile(Node_T inNode, char* path) {
     size_t* loc = NULL;
-    int exist = DynArray_bsearch(inNode->files, path, loc, 
+    int exist = DynArray_bsearch(Node_getFiles(inNode), path, loc, 
         (int (*)(const void*, const void*)) File_compare);
     File_T outFile;
     if (exist == 0) {
         return NULL;
     }
-    outFile = DynArray_get(inNode->files, *loc);
+    outFile = DynArray_get(Node_getFiles(inNode), *loc);
     return outFile;
 }
 
@@ -110,7 +110,7 @@ void* File_getcontents(Node_T inNode, char* path) {
 
 
 char* File_getFileName(Node_T inNode, size_t fileID) {
-    File_T outfile = DynArray_get(inNode->files, fileID);
+    File_T outfile = DynArray_get(Node_getFiles(inNode), fileID);
     if (outfile == NULL) {
         return NULL;
     }
@@ -118,22 +118,22 @@ char* File_getFileName(Node_T inNode, size_t fileID) {
 }
 
 size_t File_getNumFiles(Node_T inNode, char* path) {
-    return DynArray_getLength(inNode->files);
+    return DynArray_getLength(Node_getFiles(inNode));
 }
 
 int File_rmFile(Node_T inNode, char* path){
     size_t *loc = NULL;
-    int exist = DynArray_bsearch(inNode->files, path, loc, 
+    int exist = DynArray_bsearch(Node_getFiles(inNode), path, loc, 
         (int (*)(const void*, const void*)) File_compare);
     File_T outFile;
     if (!exist) {
-        if(DynArray_bsearch(inNode->files, path, loc, 
+        if(DynArray_bsearch(Node_getFiles(inNode), path, loc, 
             (int (*)(const void*, const void*)) File_compare)) {
             return NOT_A_FILE;
         }
         return NO_SUCH_PATH;
     }
-    outFile = DynArray_removeAt(inNode->files, *loc);
+    outFile = DynArray_removeAt(Node_getFiles(inNode), *loc);
     free(outFile->path);
     free(outFile);
     return SUCCESS;
@@ -143,11 +143,11 @@ int File_rmFile(Node_T inNode, char* path){
 void File_freeAll(Node_T inNode) {
     File_T tempFile;
     size_t i;
-    for(i = 0; i < DynArray_getLength(inNode->files); i++)
+    for(i = 0; i < DynArray_getLength(Node_getFiles(inNode)); i++)
     {
-      tempFile = DynArray_get(inNode->files, i);
+      tempFile = DynArray_get(Node_getFiles(inNode), i);
       free(tempFile->path);
       free(tempFile);
    }
-   DynArray_free(inNode->files);
+   DynArray_free(Node_getFiles(inNode));
 }
