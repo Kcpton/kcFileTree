@@ -139,3 +139,14 @@ int File_rmFile(Node_T inNode, char* path){
 }
 
 
+void File_freeAll(Node_T inNode) {
+    File_T tempFile;
+    int i;
+    for(i = 0; i < DynArray_getLength(inNode->files); i++)
+    {
+      tempFile = DynArray_get(inNode->files, i);
+      free(tempFile->path);
+      free(tempFile);
+   }
+   DynArray_free(inNode->files);
+}

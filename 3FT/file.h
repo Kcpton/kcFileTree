@@ -11,10 +11,11 @@
 
 
 /*
-   a Node_T is an object that contains a path payload and references to
+   a File_T is an object that contains a path  and references to
    the node's parent (if it exists) and children (if they exist).
 */ 
 typedef struct file* File_T;
+
 
 File_T File_new(char* path, void* contents);
 
@@ -32,8 +33,7 @@ int File_contains(Node_T inNode, char* path);
 
 char* File_toString(Node_T inNode, char* path);
 
-int File_getNumFiles(Node_T inNode, char* path);
+size_t File_getNumFiles(Node_T inNode, char* path);
 
-
-
+void File_freeAll(Node_T inNode);
 #endif
