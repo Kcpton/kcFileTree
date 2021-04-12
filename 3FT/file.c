@@ -54,7 +54,7 @@ int File_insert(Node_T inNode, char* path, void* contents)  {
     if(newFile == NULL) {
         return MEMORY_ERROR;
     }
-    if(DynArray_addAt(inNode->files, loc, newFile)) {
+    if(DynArray_addAt(inNode->files, *loc, newFile)) {
         return SUCCESS;
     }
     
@@ -62,7 +62,7 @@ int File_insert(Node_T inNode, char* path, void* contents)  {
 }
 
 int File_contatins(Node_T inNode, char* path) {
-    size_t *loc;
+    size_t *loc = NULL;
     if(DynArray_bsearch(inNode->files, path, loc, 
     (int (*)(const void*, const void*)) File_compare)) {
         return TRUE;
