@@ -21,7 +21,7 @@ File_T File_new(char* path, void* contents);
 
 int File_insert(Node_T inNode, char* path, void* contents);
 
-int File_replace(Node_T inNode, char* path, void* contents);
+void* File_replace(Node_T inNode, char* path, void* contents);
 
 void* File_getcontents(Node_T inNode, char* path);
 
