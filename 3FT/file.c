@@ -14,8 +14,8 @@
 #include "node1.c"
 
 struct file {
-   char* path;
-   void* contents;
+    char* path;
+    void* contents;
 };
 
 File_T File_new(char* path, void* contents) {
@@ -32,6 +32,12 @@ File_T File_new(char* path, void* contents) {
     output->contents = contents;
 }
 
+
+/*
+  Node_compare compares file1 and file2 based on their paths.
+  Returns <0, 0, or >0 if file1 is less than,
+  equal to, or greater than file2, respectively.
+*/
 static int File_compare(File_T file1, File_T file2) {
     return strcmp(file1->path, file2->path);
 }
@@ -44,22 +50,28 @@ int File_insert(Node_T inNode, char* path, void* contents)  {
     }
     newFile = File_new(path, contents);
     if(newFile == NULL) {
-        return NULL;
+        return MEMORY_ERROR;
     }
     if(DynArray_addAt(inNode->files, loc, newFile)) {
         return SUCCESS;
     }
+    
     return MEMORY_ERROR;
 }
 
 int File_contatins(Node_T inNode, char* path) {
     size_t *loc;
-    if(DynArray_bsearch(inNode->files, path, loc, File_compare)) {
+    if(DynArray_bsearch(inNode->files, path, loc, (int (*)(void*, void*)) File_compare)) {
         return TRUE;
     }
     return FALSE;
 }
 
+/*
+    File_getFile is a static function that takes in a node inNode annd
+    a path and gets the path from the file if it exist. If it doesn't
+    return NULL.
+*/
 static File_T File_getFile(Node_T inNode, char* path) {
     size_t* loc;
     int exist = DynArray_bsearch(inNode->files, path, loc, 
@@ -123,4 +135,5 @@ int File_rmFile(Node_T inNode, char* path){
     free(outFile);
     return SUCCESS;
 }
+
 
