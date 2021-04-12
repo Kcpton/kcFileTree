@@ -121,7 +121,7 @@ size_t File_getNumFiles(Node_T inNode, char* path) {
 }
 
 int File_rmFile(Node_T inNode, char* path){
-    size_t* loc;
+    size_t *loc;
     int exist = DynArray_bsearch(inNode->files, path, loc, 
         (int (*)(const void*, const void*)) File_compare);
     File_T outFile;
