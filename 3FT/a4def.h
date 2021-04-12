@@ -19,6 +19,5 @@ typedef enum bool { FALSE, TRUE } boolean;
    a Node_T is an object that contains a path payload and references to
    the node's files and children (if they exist).
 */
-typedef struct node* Node_T;
 
 #endif

@@ -131,5 +131,7 @@ size_t Node_getNumChildren(Node_T n) {
    return DynArray_getLength(n->children);
 }
 
-DynArray_T Node_get
+DynArray_T Node_getFiles(Node_T n) {
+   return n->files;
+}
 

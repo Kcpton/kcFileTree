@@ -10,7 +10,7 @@
 #include "a4def.h"
 #include "file.h"
 
-
+typedef struct node* Node_T;
 /*
    Node_getLocation takes a Node_T input and looks for a char
    key inside of the Node_T and stores the location of where
@@ -70,4 +70,5 @@ size_t Node_destroy(Node_T input);
 */
 int Node_contains(Node_T parent, Node_T child);
 
+DynArray_T Node_getFiles(Node_T input);
 #endif
