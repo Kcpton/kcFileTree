@@ -45,7 +45,8 @@ static int File_compare(File_T file1, File_T file2) {
 int File_insert(Node_T inNode, char* path, void* contents)  {
     size_t loc;
     File_T newFile;
-    if(DynArray_bsearch(inNode->files, path, loc, File_compare)) {
+    if(DynArray_bsearch(inNode->files, path, loc, 
+        (int (*)(const void*, const void*)) File_compare)) {
         return ALREADY_IN_TREE;
     }
     newFile = File_new(path, contents);
@@ -61,7 +62,8 @@ int File_insert(Node_T inNode, char* path, void* contents)  {
 
 int File_contatins(Node_T inNode, char* path) {
     size_t *loc;
-    if(DynArray_bsearch(inNode->files, path, loc, (int (*)(void*, void*)) File_compare)) {
+    if(DynArray_bsearch(inNode->files, path, loc, 
+    (int (*)(const void*, const void*)) File_compare)) {
         return TRUE;
     }
     return FALSE;

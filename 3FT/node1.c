@@ -81,7 +81,7 @@ int Node_getLocation(Node_T input, char* key, size_t *loc) {
    assert(input != NULL);
    assert(key != NULL);
    return DynArray_bsearch(input->children, key, loc, 
-      (int (*)(void*, void*)) Node_compare) == 0;
+      (int (*)(const void*, const void*)) Node_compare) == 0;
 }
 
 int Node_addChild(Node_T parent, char* path, size_t loc) {
