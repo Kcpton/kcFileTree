@@ -9,6 +9,7 @@
 #include <stddef.h>
 #include "a4def.h"
 #include "file.h"
+#include "dynarray.h"
 
 
 /*
